@@ -1,0 +1,29 @@
+---
+import '../styles/global.css';
+const { title = 'lycoris // wired', description = 'embedded systems and reverse engineering', post = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="alternate" type="application/rss+xml" title="lycoris // wired" href={`${base}/rss.xml`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet" />
+  </head>
+  <body class:list={{ post }}>
+    <canvas id="wire" aria-hidden="true"></canvas>
+    <div class="vig"></div><div class="scan"></div><div class="grain"></div>
+    <slot />
+    <div class="tick"><span>오늘도 일어나면 눈앞에는 흰 천장 // 어제도 일어나면 눈앞에는 흰 천장 // 내일도 일어나면 눈앞에는 흰 천장 // 언제나 일어나면 눈앞에는 흰 천장 // 언제나 언제나 언제나 </span></div>
+    <script>
+      import '../scripts/lily.js';
+      import '../scripts/uptime.js';
+      import '../scripts/cards.js';
+    </script>
+  </body>
+</html>

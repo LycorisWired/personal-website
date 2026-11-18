@@ -1,0 +1,10 @@
+---
+const { id, title, href, cta = 'more' } = Astro.props;
+---
+<section class="card" data-id={id} aria-label={title}>
+  <div class="bar"><span>{title}</span></div>
+  <div class="body">
+    <slot />
+    {href && <a class="more" href={href}>{cta}</a>}
+  </div>
+</section>

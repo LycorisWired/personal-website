@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import { getCollection } from 'astro:content';
+import { fmt } from '../lib/fmt';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => +b.data.date - +a.data.date)
+  .slice(0, 3);
+  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
+---
+<Base>
+  <main id="desk">
+    <header class="brand"><h1>/lycoris</h1><p>wired, receiving<span class="cur">_</span></p></header>
+    <div class="stat">signal ▮▮▮▯<br />t+<span id="up">00:00:00</span></div>
+    <div class="cn" aria-hidden="true">接收无线电信号</div>
+
+    <Card id="about" title="about.txt">
+      <h2>lycoris</h2>
+      <p class="sub">who am i</p>
+      <p>
+        hi! i'm a CS grad focused on learning embedded security and reverse engineering. i originally studied
+        software engineering before moving onto cybersecurity and participating in CTFs.
+        </br>
+      </p>
+      <ul class="social-links">
+          <li><a href="https://github.com/LycorisWired">github</a></li>
+          <li><a href="mailto:LycorisWired@proton.me">email</a></li>
+      </ul>
+    </Card>
+
+    <Card id="projects" title="projects/" href={`${base}/projects/`} cta="all projects">
+      <ul class="card-list">
+        {projects.map((p) => <li>{p.data.title}<small>{p.data.stack.slice(0, 3).join(' · ').toLowerCase()}</small></li>)}
+      </ul>
+    </Card>
+
+    <Card id="blog" title="blog/" href={`${base}/blog/`} cta="all posts">
+      <ul class="card-list">
+        {posts.length === 0 && <li>nothing yet<small>writeups coming soon</small></li>}
+        {posts.map((p) => (
+          <li><a href={`${base}/blog/${p.id}/`}>{p.data.title}</a><small>{fmt(p.data.date)}</small></li>
+        ))}
+      </ul>
+    </Card>
+
+    <Card id="tech" title="my_kit.txt">
+      <p class="sub">stuff that i use</p>
+      <p>
+        programming languages: c, c++, python
+      </p>
+      <p>
+        tools: ghidra, gdb, qemu
+      </p>
+    </Card>
+
+  </main>
+</Base>
