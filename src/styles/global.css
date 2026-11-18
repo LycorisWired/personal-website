@@ -140,7 +140,7 @@
      top: 22%;
 }
  .card[data-id=projects] {
-     left: calc(94% - 340px);
+     left: calc(90% - 340px);
      top: 14%;
      width: 330px;
 }
@@ -150,7 +150,7 @@
      width: 340px;
 }
 .card[data-id=tech] {
-    left: calc(94% - 175px);
+    left: 14%;
     top: 65%;
     width: 340px;
 }
